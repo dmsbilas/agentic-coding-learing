@@ -1,0 +1,221 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AI Engineer Roadmap Tasks</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: single reading column, tracks → sections → numbered checklist rows */
+:root{
+  --bg:#f6f7f9; --surface:#ffffff; --fg:#1b2130; --muted:#5d6678; --line:#dfe3ea;
+  --accent:#2f56c9; --accent-soft:#e5ebfb; --done:#8a93a5;
+  --f-body:"Instrument Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --f-mono:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#12151c; --surface:#1a1f29; --fg:#e4e8f0; --muted:#98a1b3; --line:#2a313e;
+  --accent:#86a2f5; --accent-soft:#232c45; --done:#667085; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#12151c; --surface:#1a1f29; --fg:#e4e8f0; --muted:#98a1b3; --line:#2a313e;
+  --accent:#86a2f5; --accent-soft:#232c45; --done:#667085; color-scheme:dark}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font-family:var(--f-body);font-size:15px;line-height:1.5}
+.wrap{max-width:780px;margin:0 auto;padding-inline:16px;padding-block:32px 64px}
+header{display:grid;gap:10px;margin-bottom:28px}
+h1{font-size:1.75rem;font-weight:700;letter-spacing:-.01em;margin:0;text-wrap:balance}
+.lede{color:var(--muted);margin:0;max-width:62ch}
+.bar{display:flex;flex-wrap:wrap;align-items:center;gap:12px;margin-top:6px}
+.prog{flex:1 1 220px;height:8px;background:var(--line);border-radius:99px;overflow:hidden}
+.prog>i{display:block;height:100%;background:var(--accent);width:0;transition:width .25s}
+.count{font-family:var(--f-mono);font-size:.85rem;color:var(--muted);font-variant-numeric:tabular-nums}
+button{font:inherit;font-size:.85rem;color:var(--fg);background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:5px 10px;cursor:pointer}
+button:hover{border-color:var(--accent)}
+button:focus-visible,input:focus-visible+span{outline:2px solid var(--accent);outline-offset:2px}
+.track{margin-top:36px}
+.track>h2{font-size:1.25rem;margin:0 0 2px}
+.track>p{color:var(--muted);margin:0 0 14px;font-size:.9rem}
+section{background:var(--surface);border:1px solid var(--line);border-radius:10px;margin-bottom:14px;overflow:hidden}
+section>h3{display:flex;justify-content:space-between;gap:12px;align-items:baseline;font-size:.95rem;margin:0;padding:12px 16px;border-bottom:1px solid var(--line)}
+section>h3 small{font-family:var(--f-mono);font-weight:400;color:var(--muted);font-size:.78rem;white-space:nowrap;font-variant-numeric:tabular-nums}
+ol{list-style:none;margin:0;padding:0}
+li{border-top:1px solid var(--line)}
+li:first-child{border-top:0}
+label{display:grid;grid-template-columns:22px 2.6em minmax(0,1fr);gap:8px;align-items:start;padding:10px 16px;cursor:pointer}
+label:hover{background:var(--accent-soft)}
+input{appearance:none;margin:2px 0 0;width:18px;height:18px;border:1.5px solid var(--muted);border-radius:4px;display:grid;place-content:center;cursor:pointer;background:var(--surface)}
+input:checked{background:var(--accent);border-color:var(--accent)}
+input:checked::after{content:"";width:9px;height:5px;border:2px solid var(--surface);border-top:0;border-right:0;transform:rotate(-45deg) translate(1px,-1px)}
+.n{font-family:var(--f-mono);font-size:.82rem;color:var(--accent);padding-top:2px;font-variant-numeric:tabular-nums}
+.t{min-width:0}
+.t b{font-weight:600;display:block}
+.t span{color:var(--muted);font-size:.88rem}
+li.done .t b{color:var(--done);text-decoration:line-through}
+li.done .n{color:var(--done)}
+body.hide-done li.done{display:none}
+.refs{font-size:.88rem;color:var(--muted);margin-top:28px}
+.refs a{color:var(--accent);word-break:break-all}
+@media (prefers-reduced-motion:reduce){.prog>i{transition:none}}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header>
+    <h1>AI Engineer Roadmap Tasks</h1>
+    <p class="lede">Every item from your learning roadmap as a numbered task. Track A covers agents and RAG; Track B covers the healthcare-AI consulting skill set, ordered by its four phases. Ticks are saved in this browser.</p>
+    <div class="bar">
+      <div class="prog" aria-hidden="true"><i id="pbar"></i></div>
+      <span class="count" id="pcount">0 / 0 done</span>
+      <button id="hide" type="button" aria-pressed="false">Hide done</button>
+      <button id="reset" type="button">Reset</button>
+    </div>
+  </header>
+  <main id="root"></main>
+  <p class="refs">Reference repos: <a href="https://github.com/orgs/agentics-ai/repositories">agentics-ai</a> · <a href="https://github.com/Asif1405/study-partner-web">study-partner-web</a> · <a href="https://github.com/Asif1405/job-matcher-web">job-matcher-web</a> · <a href="https://github.com/Asif1405/resume-screener-web">resume-screener-web</a></p>
+</div>
+
+<script>
+const DATA=[
+{track:"Track A · Agents & RAG",sub:"Suggested order: single agent → RAG + vector DB → LangGraph → multi-agent → evals → observability & deploy → portfolio write-up.",sections:[
+ {t:"Single-agent fundamentals",tasks:[
+  ["Learn tool/function calling","Schema design, parallel vs. sequential calls, handling malformed tool-call output"],
+  ["Implement the ReAct loop","Reason → Act → Observe, written by hand before using a framework"],
+  ["Compare planning strategies","Plan-and-execute vs. reactive step-by-step; note when each fits"],
+  ["Define stopping conditions","Detect done, stuck in a loop, or needs human escalation"],
+  ["Add error handling & retries","Tool failures, malformed responses, rate limits, timeouts"],
+  ["Practice project: single agent with 3–4 tools","Web search, calculator, DB query, file read/write; multi-step task with graceful failure"]]},
+ {t:"RAG",tasks:[
+  ["Try chunking strategies","Fixed-size vs. semantic, overlap tuning, chunk by headers/sections"],
+  ["Choose an embedding model","Dimensionality tradeoffs; fine-tuned vs. off-the-shelf"],
+  ["Build retrieval","Top-k similarity, metadata filtering, multi-query retrieval"],
+  ["Add hybrid search","Combine BM25 keyword search with vector search"],
+  ["Add reranking","Cross-encoder / reranker before chunks enter the context window"],
+  ["Build agentic RAG","Retrieval as a tool the agent can call and re-call with refined queries"],
+  ["Tune chunk-to-context budget","How much retrieved content to include without drowning the model"],
+  ["Practice project: hybrid + rerank vs. naive top-k","RAG over a real document set; compare answer quality"]]},
+ {t:"Vector databases",tasks:[
+  ["Try a managed vector DB","Pinecone, Weaviate or Qdrant"],
+  ["Try pgvector","Vector search inside Postgres alongside other data"],
+  ["Evaluate DB characteristics","Latency at scale, metadata + vector filtering, HNSW indexing concepts"],
+  ["Write a cost comparison","Managed vector DB billing vs. Postgres extension"]]},
+ {t:"Multi-agent architectures",tasks:[
+  ["Orchestrator–worker","One planner delegates narrow tasks to workers"],
+  ["Hierarchical","Manager → sub-managers → workers"],
+  ["Peer-to-peer / debate","Agents critique or negotiate (review/QA loops)"],
+  ["Blackboard","Agents read/write shared state instead of messaging"],
+  ["Sequential pipeline","Fixed handoff, e.g. researcher → writer → editor"]]},
+ {t:"Frameworks",tasks:[
+  ["Learn LangGraph","State/graph model; LangChain loaders, splitters, retrievers"],
+  ["Rebuild the single agent in LangGraph","Wire in the RAG pipeline as a tool"],
+  ["Survey the other frameworks","CrewAI, AutoGen, OpenAI Agents SDK/Swarm, Claude Agent SDK"]]},
+ {t:"Tool integration & MCP",tasks:[
+  ["Learn MCP fundamentals","Standard for exposing tools and data sources to agents"],
+  ["Build a custom MCP server","Expose a real tool: a database, your own API, or a file system"],
+  ["Handle large tool sets","Dynamic discovery and selection once an agent has 20+ tools"]]},
+ {t:"Memory & state",tasks:[
+  ["Short-term memory","Conversation/task context within one run"],
+  ["Long-term memory","Vector-store-backed facts, preferences, past outcomes across sessions"],
+  ["Design multi-agent state passing","Full history vs. summarized state vs. structured handoff objects"]]},
+ {t:"Evaluation",tasks:[
+  ["Task-level evals","Did the agent actually complete the goal?"],
+  ["Retrieval evals","Precision/recall against a labeled test set"],
+  ["Trajectory evals","Excess tool calls, backtracking, redundant steps"],
+  ["LLM-as-judge","Second model grades outputs against a rubric"],
+  ["Regression suite","Re-run fixed tasks on every prompt/tool/retriever/model change"],
+  ["Stagnation detection","Spot agents looping without progress (cost control)"]]},
+ {t:"Fine-tuning",tasks:[
+  ["Decide fine-tune vs. RAG vs. prompting","Be able to argue the judgment call in an interview"],
+  ["Hands-on LoRA/QLoRA project","Parameter-efficient fine-tuning end to end"]]},
+ {t:"Deployment & production",tasks:[
+  ["Self-host a model","vLLM serving; GGUF/AWQ quantization tradeoffs"],
+  ["Control cost","Token usage per run; route cheap vs. expensive models"],
+  ["Reduce latency","Parallelize independent tool, retrieval and sub-agent calls"],
+  ["Add observability","Trace runs with Langfuse or LangSmith"],
+  ["Add human-in-the-loop checkpoints","Approval before email, purchase, data changes"],
+  ["Add guardrails","Constrain tools/actions; filter retrieved and generated content"],
+  ["Go deep on one cloud platform","AWS Bedrock, Azure AI Foundry, or Vertex AI"]]},
+ {t:"Portfolio project",tasks:[
+  ["Study the reference repos","agentics-ai org and the three Asif1405 repos below"],
+  ["Build RAG with hybrid search + reranking","Over a real document set"],
+  ["Add the multi-agent layer","Orchestrator–worker, using the RAG pipeline as a tool"],
+  ["Add the eval suite","Retrieval quality and task success"],
+  ["Deploy with observability and cost tracking","Self-hosted or cloud"],
+  ["Write it up","Cost/latency notes, architecture diagram, eval results"]]}
+]},
+{track:"Track B · Healthcare AI consulting",sub:"From the second version: GraphRAG / causal reasoning, explainability and safety for clinical use. Grouped by its four phases.",sections:[
+ {t:"Phase 1 · Foundations (1–2 months)",tasks:[
+  ["Python data stack","Python, Pandas, NumPy, Scikit-learn"],
+  ["Classical ML","Random Forest, XGBoost, logistic regression, feature engineering, cross-validation"],
+  ["Deep learning with PyTorch",""],
+  ["NLP basics","Text embeddings, sentence similarity, NER, classification, summarization"]]},
+ {t:"Phase 2 · Generative AI (2–3 months)",tasks:[
+  ["LLM internals","Transformer architecture, tokenization, attention"],
+  ["Hugging Face Transformers",""],
+  ["Fine-tuning methods","PEFT/LoRA, instruction tuning, RLHF basics"],
+  ["Run open-source LLMs","Llama, Mistral, Qwen, Gemma via Ollama and vLLM"],
+  ["Basic RAG","Embeddings + ChromaDB, Pinecone, Weaviate or Milvus"]]},
+ {t:"Phase 3 · Advanced retrieval & reasoning (2 months)",tasks:[
+  ["LangChain and LlamaIndex",""],
+  ["Knowledge graph foundations","RDF, ontologies, entity relationships, graph databases"],
+  ["Neo4j and Cypher",""],
+  ["Knowledge graph embeddings",""],
+  ["GraphRAG","Plus hybrid search and query planning"],
+  ["Model the HCKG reasoning chain","Clinical knowledge → local idioms → social factors → causal relationships → reasoning graph"],
+  ["Causal AI","Structural causal models, DAGs, Pearl's causal inference, Bayesian networks"],
+  ["Read the causal books","The Book of Why; Elements of Causal Inference"]]},
+ {t:"Phase 4 · Production & governance (1–2 months)",tasks:[
+  ["Explainable AI","SHAP, LIME, attention visualization, explainability dashboards"],
+  ["Return confidence, reasoning paths, traceability","Not just answers"],
+  ["Build a risk model with SHAP","Random Forest (1000 trees) mirroring the pregnancy-risk example"],
+  ["AI safety risks","Hallucination, bias, automation bias, cultural mismatch, unsafe outputs"],
+  ["Responsible AI & governance","Risk assessment, human-in-the-loop, red teaming, guardrails"],
+  ["Healthcare AI","Clinical decision support, mental-health workflows, patient privacy, clinical validation, regulation, human oversight"],
+  ["MLOps","Docker, Kubernetes basics, MLflow, FastAPI, model versioning, monitoring"]]},
+ {t:"Consulting skills",tasks:[
+  ["Translate clinical requirements into AI designs",""],
+  ["Explain AI limitations to non-technical stakeholders","Psychologists, clinicians, managers"],
+  ["Design evaluation metrics","Usefulness, safety, override rate"],
+  ["Conduct an AI risk assessment",""],
+  ["Review architectures and recommend improvements",""]]}
+]}];
+
+const KEY="ai-roadmap-tasks-v1";
+let done={};
+try{done=JSON.parse(localStorage.getItem(KEY)||"{}")||{}}catch(e){done={}}
+const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(done))}catch(e){}};
+const esc=s=>s.replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+
+let n=0,html="";const secs=[];
+DATA.forEach(tr=>{
+  html+=`<div class="track"><h2>${esc(tr.track)}</h2><p>${esc(tr.sub)}</p>`;
+  tr.sections.forEach(s=>{
+    const ids=[];let rows="";
+    s.tasks.forEach(([t,d])=>{n++;ids.push(n);
+      rows+=`<li data-id="${n}"><label><input type="checkbox" id="task-${n}"><span class="n">${String(n).padStart(2,"0")}</span><span class="t"><b>${esc(t)}</b>${d?`<span>${esc(d)}</span>`:""}</span></label></li>`;});
+    const si=secs.push(ids)-1;
+    html+=`<section><h3>${esc(s.t)}<small data-sec="${si}"></small></h3><ol>${rows}</ol></section>`;
+  });
+  html+=`</div>`;
+});
+const root=document.getElementById("root");root.innerHTML=html;
+
+function refresh(){
+  let c=0;
+  root.querySelectorAll("li").forEach(li=>{const on=!!done[li.dataset.id];li.classList.toggle("done",on);li.querySelector("input").checked=on;if(on)c++;});
+  root.querySelectorAll("small[data-sec]").forEach(el=>{const ids=secs[el.dataset.sec];el.textContent=`${ids.filter(i=>done[i]).length}/${ids.length}`;});
+  document.getElementById("pcount").textContent=`${c} / ${n} done`;
+  document.getElementById("pbar").style.width=(c/n*100)+"%";
+}
+root.addEventListener("change",e=>{const li=e.target.closest("li");if(!li)return;
+  if(e.target.checked)done[li.dataset.id]=1;else delete done[li.dataset.id];save();refresh();});
+const hb=document.getElementById("hide");
+hb.addEventListener("click",()=>{const on=document.body.classList.toggle("hide-done");hb.setAttribute("aria-pressed",on);hb.textContent=on?"Show done":"Hide done";});
+const rb=document.getElementById("reset");let armed=false;
+rb.addEventListener("click",()=>{if(!armed){armed=true;rb.textContent="Click again to clear";setTimeout(()=>{armed=false;rb.textContent="Reset"},3000);return;}
+  done={};save();refresh();armed=false;rb.textContent="Reset";});
+refresh();
+</script>
+</body>
+</html>
